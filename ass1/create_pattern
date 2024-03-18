@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#if -u flag is present, u will be set to 1. k will be set to value of -k argument
+u=0
+k=0
+
+#scan for flags -u and -k
+until [ $# -eq 0 ]; 
+do
+  if test $1 = "-u"; then
+    u=1;
+    shift
+  elif test $1 = "-k"; then
+    k=$2
+    shift
+    shift
+  else
+    echo "cannot find valid argument"
+    shift
+  fi
+done
+
+#checks for and handles cases where k == 1 or k == 26
+if (( ${k} == 0 || ${k} == 26 )); then
+  if [ ${u} -eq 1 ]; then
+    echo "A-Z"
+    exit
+  else
+    echo "a-z"
+    exit
+  fi
+fi
+  
+
+
+#alphabet arrays
+lowerAlphabet=( a b c d e f g h i j k l m n o p q r s t u v w x y z )
+upperAlphabet=( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z )
+
+if [ ${u} -eq 1 ]; then
+  echo "${upperAlphabet[k]}-ZA-${upperAlphabet[((k-1))]}"
+else
+  echo "${lowerAlphabet[k]}-za-${lowerAlphabet[((k-1))]}"
+fi
+
+

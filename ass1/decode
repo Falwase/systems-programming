@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# -eq 1 ]; then
+    code=$1;
+fi
+
+for i in $(seq 1 26); do
+    echo "Shift $i"
+    echo $(./caesar -u -k $i < $code)
+done
